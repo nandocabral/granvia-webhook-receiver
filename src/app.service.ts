@@ -7,14 +7,13 @@ export class AppService {
     return 'Hello World!';
   }
 
-  async setWebhook(body: any, store: string, secret: string) {
+  setWebhook(body: any, store: string, secret: string) {
     try {
       process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-      const { data } = await axios.post(
+      axios.post(
         `${process.env.URL_SITE}/api/v1/webhook/shopify/public/public/orders/${store}`,
         { body, secret },
       );
-      return data;
     } catch (error) {
       console.log(error);
     }

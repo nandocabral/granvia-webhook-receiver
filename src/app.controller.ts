@@ -36,7 +36,6 @@ export class AppController {
       .createHmac('sha256', secret)
       .update(req.rawBody)
       .digest('base64');
-    console.log(shopifyHash, hash);
     if (hash !== shopifyHash) {
       return throwError(() => 'Da hell are you doing here!');
     }
