@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import axios from 'axios';
+// import axios from 'axios';
 
 @Injectable()
 export class AppService {
@@ -45,11 +45,12 @@ export class AppService {
 
   setWebhook(body: any, store: string, secret: string) {
     try {
-      process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-      axios.post(
-        `${process.env.URL_SITE}/api/v1/webhook/shopify/public/public/orders/${store}`,
-        { body, secret },
-      );
+      // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+      // axios.post(
+      //   `${process.env.URL_SITE}/api/v1/webhook/shopify/public/public/orders/${store}`,
+      //   { body, secret },
+      // );
+      this.stopCompliance(body, store, secret);
     } catch (error) {
       console.log(error);
     }
@@ -57,13 +58,20 @@ export class AppService {
 
   readUpdateHook(body: any, store: string, secret: string) {
     try {
-      process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
-      axios.post(
-        `${process.env.URL_SITE}/api/v1/webhook/shopify/public/public/orders/edit/${store}`,
-        { body, secret },
-      );
+      // process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
+      // axios.post(
+      //   `${process.env.URL_SITE}/api/v1/webhook/shopify/public/public/orders/edit/${store}`,
+      //   { body, secret },
+      // );
+      this.stopCompliance(body, store, secret);
     } catch (error) {
       console.log(error);
     }
+  }
+
+  stopCompliance(body: any, store: string, secret: string) {
+    console.log(
+      `${body}, from store: ${store}, at: ${Date.now().toLocaleString()}`,
+    );
   }
 }
